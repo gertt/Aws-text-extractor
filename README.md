@@ -22,7 +22,7 @@ After run all the test we can deploy on docker
 
 Dev: 
 - docker build -t aws-text-extractor-dev .  
-- docker run -p 9292:9292 aws-text-extractor-dev 
+- docker run -p 9191:9191 aws-text-extractor-dev 
 
 Prod:
 - docker build -t aws-text-extractor-prod .
@@ -30,7 +30,7 @@ Prod:
 
 Test:
 - docker build -t aws-text-extractor-test .
-- docker run -p 9292:9292 aws-text-extractor-test 
+- docker run -p 9393:9393 aws-text-extractor-test 
 
 Tools:
 - IntelliJ
