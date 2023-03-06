@@ -15,6 +15,8 @@ We have different environment dev,test prod,
 - Prod can be accessible by url http://localhost:9292/aws-text-extractor-prod/upload
 - Test can be accessible by url http://localhost:9393/aws-text-extractor-test/upload
 
+Note: The api can be accessed by post method, body, form-data, key -> img, value an image.
+
 The logging is made by slf4j-api  and all logs are printed on log/log directory every day
 is another file with the date name
 
