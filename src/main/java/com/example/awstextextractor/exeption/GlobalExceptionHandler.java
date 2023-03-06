@@ -41,7 +41,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(customResponse);
     }
 
-
     @ExceptionHandler(NoTextFoundException.class)
     public ResponseEntity<CustomResponse> handleNoTextFoundExeption(NoTextFoundException noTextFoundException, WebRequest request) {
         CustomResponse customResponse = new CustomResponse(false, noTextFoundException.getMessage(), List.of());

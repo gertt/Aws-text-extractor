@@ -29,21 +29,20 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class TextExtractServiceImplTest {
 
-    private TextExtractServiceImpl textExtractService;
-
     @Mock
     private AmazonTextExtractorService amazonTextExtractorService;
+
+    private TextExtractServiceImpl textExtractService;
+    private MockMultipartFile mockFile;
 
     @Before
     public void setUp() {
         textExtractService = new TextExtractServiceImpl(amazonTextExtractorService);
+        mockFile = getMockMultipartFile();
     }
 
     @Test
     public void testGetTextExtractedSuccess() throws IOException {
-        // create mock data for test
-        MockMultipartFile mockFile = new MockMultipartFile("test-image.jpg", new byte[10]);
-
         List<Block> mockBlocks = new ArrayList<>();
         Block mockBlock1 = new Block().withBlockType("LINE").withText("Some text");
         Block mockBlock2 = new Block().withBlockType("LINE").withText("Some more text");
@@ -66,13 +65,15 @@ public class TextExtractServiceImplTest {
 
     @Test(expected = NoTextFoundException.class)
     public void testGetTextExtractedNoTextFound() throws IOException {
-        // create mock data for test
-        MockMultipartFile mockFile = new MockMultipartFile("test-image.jpg", new byte[10]);
-
         DetectDocumentTextResult mockDetectResult = new DetectDocumentTextResult().withBlocks(new ArrayList<>());
         when(amazonTextExtractorService.getDetectDocumentTextResult(any(MultipartFile.class))).thenReturn(mockDetectResult);
 
         // call method being tested
         textExtractService.getTextExtracted(mockFile);
     }
+
+    private static MockMultipartFile getMockMultipartFile() {
+        return new MockMultipartFile("test-image.jpg", new byte[10]);
+    }
+
 }

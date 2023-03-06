@@ -32,7 +32,7 @@ public class TextExtractControllerTest {
     private  MultipartFile mockFile;
 
     @Before
-    public void setup() throws IOException {
+    public void setup() {
         MockitoAnnotations.openMocks(this);
         controller = new TextExtractController(textExtractService, logger);
         mockFile = mock(MultipartFile.class);
@@ -45,6 +45,7 @@ public class TextExtractControllerTest {
         when(textExtractService.getTextExtracted(mockFile)).thenReturn(new ResponseEntity<>(mockResponse, HttpStatus.OK));
 
         ResponseEntity<CustomResponse> response = controller.getTextFromImage(mockFile);
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(mockResponse, response.getBody());
     }
@@ -55,6 +56,7 @@ public class TextExtractControllerTest {
         when(textExtractService.getTextExtracted(mockFile)).thenReturn(new ResponseEntity<>(mockResponse, HttpStatus.INTERNAL_SERVER_ERROR));
 
         ResponseEntity<CustomResponse> response = controller.getTextFromImage(mockFile);
+
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals(mockResponse, response.getBody());
     }
